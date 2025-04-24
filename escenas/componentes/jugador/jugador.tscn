@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://77tj71vt7ic3"]
+[gd_scene load_steps=43 format=3 uid="uid://77tj71vt7ic3"]
 
 [ext_resource type="Script" uid="uid://dut3juaubsl28" path="res://escenas/componentes/jugador/jugador.gd" id="1_6on4n"]
 [ext_resource type="Texture2D" uid="uid://dp7ymd2t78v1m" path="res://assets/texturas/jogador/idle.png" id="2_6on4n"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://clyxjbsvrmwl6" path="res://escenas/componentes/jugador/estados/corriendo.gd" id="9_y0sdt"]
 [ext_resource type="Script" uid="uid://nrkd0grakf7b" path="res://escenas/componentes/jugador/estados/saltar.gd" id="10_y0sdt"]
 [ext_resource type="Script" uid="uid://cbjgamiootuvp" path="res://escenas/componentes/jugador/estados/atacar.gd" id="11_lde6h"]
+[ext_resource type="PackedScene" uid="uid://1v6fkx7hk53f" path="res://escenas/componentes/UI/HUD/h_u_d_.tscn" id="12_lbvop"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6on4n"]
 size = Vector2(42.005, 49.985)
@@ -138,8 +139,8 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_arqa2")
 }],
-"loop": true,
-"name": &"Atacando",
+"loop": false,
+"name": &"Atacar",
 "speed": 5.0
 }, {
 "frames": [{
@@ -232,10 +233,14 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="jugador" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
-position = Vector2(378, 263)
+[sub_resource type="CircleShape2D" id="CircleShape2D_lbvop"]
+radius = 23.0868
+
+[node name="jugador" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "hud")]
+position = Vector2(326, 239)
 script = ExtResource("1_6on4n")
 sprite = NodePath("AnimatedSprite2D")
+hud = NodePath("CanvasLayer2/H_U_D_")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -244,9 +249,7 @@ shape = SubResource("RectangleShape2D_6on4n")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ouxw5")
-animation = &"Quieto"
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+animation = &"Atacar"
 
 [node name="MaquinaEstado" type="Node" parent="." node_paths=PackedStringArray("jugador")]
 script = ExtResource("6_y0sdt")
@@ -266,5 +269,17 @@ script = ExtResource("9_y0sdt")
 [node name="Saltar" type="Node" parent="MaquinaEstado"]
 script = ExtResource("10_y0sdt")
 
-[node name="Atacar" type="Node" parent="MaquinaEstado"]
+[node name="Atacar" type="Node" parent="MaquinaEstado" node_paths=PackedStringArray("hitbox")]
 script = ExtResource("11_lde6h")
+hitbox = NodePath("../../Area2D")
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="H_U_D_" parent="CanvasLayer2" instance=ExtResource("12_lbvop")]
+metadata/_edit_lock_ = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(17, -16)
+shape = SubResource("CircleShape2D_lbvop")

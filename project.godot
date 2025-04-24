@@ -15,6 +15,10 @@ run/main_scene="uid://77tj71vt7ic3"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://assets/texturas/icon.svg"
 
+[global_group]
+
+Enemigos=""
+
 [input]
 
 mover_izquierda={
