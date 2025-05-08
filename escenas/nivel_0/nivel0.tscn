@@ -1,17 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://3en7s58rgv6m"]
+[gd_scene load_steps=11 format=3 uid="uid://3en7s58rgv6m"]
 
 [ext_resource type="PackedScene" uid="uid://77tj71vt7ic3" path="res://escenas/componentes/jugador/jugador.tscn" id="1_mlxhv"]
+[ext_resource type="Script" uid="uid://kvnwncej6b0k" path="res://escenas/componentes/enemigo/enemigo_volador.gd" id="2_8s6la"]
 [ext_resource type="Texture2D" uid="uid://rns1k8jxp3op" path="res://assets/texturas/icon.svg" id="2_g2xmp"]
+[ext_resource type="Script" uid="uid://3m5vscl0tpkj" path="res://escenas/componentes/coleccionables/moneda.gd" id="4_pb8h1"]
+[ext_resource type="Texture2D" uid="uid://dn2h2n0j2uhjd" path="res://assets/texturas/enderpearl.png" id="5_rmots"]
+[ext_resource type="Script" uid="uid://dri1nvw8tntu1" path="res://escenas/componentes/save_manager/save_manager.gd" id="6_0mr4h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mlxhv"]
-size = Vector2(540, 20)
+size = Vector2(752, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2xmp"]
 size = Vector2(100, 100)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8s6la"]
+size = Vector2(2.5, 2.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0mr4h"]
+radius = 15.0
+
 [node name="Nivel0" type="Node2D"]
 
-[node name="jugador" parent="." instance=ExtResource("1_mlxhv")]
+[node name="jugador" parent="." groups=["Jugador"] instance=ExtResource("1_mlxhv")]
 position = Vector2(232, 289)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -21,11 +31,20 @@ position = Vector2(438, 283)
 position = Vector2(-438, -283)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/StaticBody2D"]
-position = Vector2(325, 335)
+position = Vector2(418, 339)
 shape = SubResource("RectangleShape2D_mlxhv")
-
-[node name="Enemigo" type="CharacterBody2D" parent="." groups=["Enemigos"]]
 metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite2D/StaticBody2D/CollisionShape2D"]
+position = Vector2(-1.52588e-05, -5.66244e-06)
+scale = Vector2(5.875, 0.15625)
+texture = ExtResource("2_g2xmp")
+metadata/_edit_group_ = true
+
+[node name="Enemigo" type="CharacterBody2D" parent="." node_paths=PackedStringArray("hitbox") groups=["Enemigos"]]
+script = ExtResource("2_8s6la")
+hitbox = NodePath("hitbox")
+vida = 30
 
 [node name="Sprite2D" type="Sprite2D" parent="Enemigo"]
 position = Vector2(379.5, 259.5)
@@ -35,3 +54,35 @@ texture = ExtResource("2_g2xmp")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemigo"]
 position = Vector2(379, 260)
 shape = SubResource("RectangleShape2D_g2xmp")
+
+[node name="hitbox" type="Area2D" parent="Enemigo"]
+position = Vector2(380, 261)
+scale = Vector2(50, 50)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemigo/hitbox"]
+shape = SubResource("RectangleShape2D_8s6la")
+debug_color = Color(0.92025, 0.276052, 0.136738, 0.42)
+metadata/_edit_group_ = true
+
+[node name="Timer" type="Timer" parent="Enemigo"]
+autostart = true
+
+[node name="Moneda" type="Area2D" parent="."]
+position = Vector2(562, 265)
+script = ExtResource("4_pb8h1")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Moneda"]
+scale = Vector2(0.0628619, 0.0628619)
+texture = ExtResource("5_rmots")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moneda"]
+shape = SubResource("CircleShape2D_0mr4h")
+metadata/_edit_group_ = true
+
+[node name="SaveManager" type="Node" parent="."]
+script = ExtResource("6_0mr4h")
+
+[connection signal="timeout" from="Enemigo/Timer" to="Enemigo" method="_on_timer_ataque_timeout"]

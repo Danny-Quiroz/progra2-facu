@@ -21,11 +21,12 @@ var monedas = 120
 func _ready():
 	actualizar_valores()
 
-func _process(delta):
+func _process(_delta):
 	barra_vida.value = vida
-	texto_vida.text = str(magia)
-	barra_magia.value = vida
+	texto_vida.text = str(vida)
+	barra_magia.value = magia
 	texto_magia.text = str(magia)
+	texto_monedas.text = str(monedas)
 	
 func actualizar_valores():
 	barra_vida.max_value = max_vida
