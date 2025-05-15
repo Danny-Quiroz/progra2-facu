@@ -31,3 +31,4 @@ func _process(_delta):
 func actualizar_valores():
 	barra_vida.max_value = max_vida
 	barra_magia.max_value = max_magia
+	texto_monedas

@@ -19,7 +19,6 @@ func _ready():
 	Globales.jugador = self
 	inicializar_jugador()
 	actualizar_hud()
-	
 	await get_tree().process_frame
 	monedas = Globales.save_manager.datos_guardados.monedas
 

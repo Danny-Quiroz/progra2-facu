@@ -17,5 +17,3 @@ func cargar():
 	var json = JSON.new()
 	json.parse(texto)
 	datos_guardados = json.data
-	print(json.data)
-	var diccionario = json.data

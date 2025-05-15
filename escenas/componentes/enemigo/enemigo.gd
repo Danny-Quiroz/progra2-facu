@@ -5,7 +5,6 @@ class_name Enemigo
 
 func herir (damage : int):
 	vida -= damage
-	
 	if vida <= 0:
 		morir()
 
