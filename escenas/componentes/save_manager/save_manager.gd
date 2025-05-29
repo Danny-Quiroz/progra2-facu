@@ -4,7 +4,7 @@ var datos_guardados : Dictionary = {"monedas" : 100, "nombre" : "Carlos"}
 
 func _ready():
 	Globales.save_manager = self
-	cargar()
+	guardar()
 
 func guardar():
 	datos_guardados.monedas = Globales.jugador.monedas

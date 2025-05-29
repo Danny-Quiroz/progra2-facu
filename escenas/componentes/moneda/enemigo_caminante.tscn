@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://7hd8rhxgcrx0"]
+
+[ext_resource type="Script" uid="uid://cuulc771e0c1" path="res://escenas/componentes/enemigo/enemigo_caminante.gd" id="1_ehjde"]
+[ext_resource type="Texture2D" uid="uid://bmxug2p5u2nq" path="res://assets/texturas/jogador/bigchungus.jpeg" id="2_disnd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ifah"]
+size = Vector2(139, 117)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lxyo0"]
+size = Vector2(142, 120)
+
+[node name="enemigo-caminante" type="CharacterBody2D" node_paths=PackedStringArray("hitbox")]
+script = ExtResource("1_ehjde")
+hitbox = NodePath("hitbox")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.399425, 0.806897)
+texture = ExtResource("2_disnd")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_6ifah")
+debug_color = Color(0.941639, 1.00112e-05, 0.609701, 0.42)
+metadata/_edit_group_ = true
+
+[node name="hitbox" type="Area2D" parent="."]
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(-0.5, 12.5)
+shape = SubResource("RectangleShape2D_lxyo0")
+metadata/_edit_group_ = true
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

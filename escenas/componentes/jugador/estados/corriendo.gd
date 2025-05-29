@@ -19,3 +19,6 @@ func physics_update(delta):
 
 	if Input.is_action_just_pressed("atacar"):
 		get_parent().ir_a_siguiente_estado("Atacar")
+		
+	if jugador.is_on_floor() and Input.is_action_just_pressed("saltar"):
+		get_parent().ir_a_siguiente_estado("Saltar")

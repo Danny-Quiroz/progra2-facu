@@ -1,4 +1,5 @@
 extends Area2D
+
 class_name Coleccionable
 
 func _physics_process(delta : float):

@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://vtgh6f6fujvt"]
+
+[ext_resource type="Script" uid="uid://3m5vscl0tpkj" path="res://escenas/componentes/coleccionables/moneda.gd" id="1_m7o4y"]
+[ext_resource type="Texture2D" uid="uid://dn2h2n0j2uhjd" path="res://assets/texturas/enderpearl.png" id="2_t5ddi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0mr4h"]
+radius = 15.0
+
+[node name="Moneda" type="Area2D"]
+script = ExtResource("1_m7o4y")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.0628619, 0.0628619)
+texture = ExtResource("2_t5ddi")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0mr4h")
+metadata/_edit_group_ = true

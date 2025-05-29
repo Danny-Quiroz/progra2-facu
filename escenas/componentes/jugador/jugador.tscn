@@ -237,7 +237,6 @@ animations = [{
 radius = 23.0868
 
 [node name="jugador" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "hud")]
-position = Vector2(326, 239)
 script = ExtResource("1_6on4n")
 sprite = NodePath("AnimatedSprite2D")
 hud = NodePath("CanvasLayer2/H_U_D_")
@@ -285,6 +284,7 @@ position = Vector2(17, -16)
 shape = SubResource("CircleShape2D_lbvop")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.5, 1.5)
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 editor_draw_drag_margin = true
